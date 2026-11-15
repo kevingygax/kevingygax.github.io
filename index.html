@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alpenstrasse 20 — Kaufbewerbung Tina &amp; Kevin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..600;1,9..40,300..500&family=Playwrite+FR+Moderne:wght@100..400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Kühle französische Blau- & Salbei-Palette */
+            --bg-base: #EDF1F6;
+            --bg-soft-blue: #C7D1E2;
+            --bg-mist-green: #D7DECC;
+            --bg-sage: #BACDB9;
+            --bg-dove: #A5B3B6;
+            --text-slate: #5F696A;
+            --text-dark: #253032;
+            --border-subtle: rgba(37, 48, 50, 0.14);
+            --ease-momo: cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            background-color: var(--bg-base);
+            color: var(--text-dark);
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            overflow-x: hidden;
+            line-height: 1.65;
+        }
+
+        /* Fette französische Schreibschrift für alle Überschriften */
+        h1, h2, h3, .font-french {
+            font-family: 'Playwrite FR Moderne', cursive;
+            font-weight: 400;
+            -webkit-text-stroke: 1.05px currentColor;
+            text-shadow: 0.4px 0 0 currentColor;
+            line-height: 1.32;
+            color: var(--text-dark);
+        }
+
+        .container {
+            max-width: 1380px;
+            margin: 0 auto;
+            padding: 0 clamp(1.25rem, 4vw, 3.5rem);
+        }
+
+        /* Preloader Curtain */
+        #preloader {
+            position: fixed;
+            inset: 0;
+            background-color: var(--bg-soft-blue);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 1.1s var(--ease-momo);
+        }
+        #preloader.is-done {
+            transform: translateY(-100%);
+            pointer-events: none;
+        }
+        #preloader span {
+            font-family: 'Playwrite FR Moderne', cursive;
+            font-size: clamp(1.4rem, 3vw, 2.2rem);
+            -webkit-text-stroke: 0.9px var(--text-dark);
+            color: var(--text-dark);
+            opacity: 0.9;
+        }
+
+        /* Magnetic Custom Cursor */
+        .custom-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 12px;
+            height: 12px;
+            background-color: var(--text-dark);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9000;
+            transform: translate(-50%, -50%);
+            transition: width 0.35s var(--ease-momo), height 0.35s var(--ease-momo), background-color 0.35s var(--ease-momo);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--bg-base);
+            font-size: 0.72rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+        .custom-cursor.is-link {
+            width: 44px;
+            height: 44px;
+            background-color: rgba(37, 48, 50, 0.14);
+            backdrop-filter: blur(4px);
+        }
+        .custom-cursor.is-media {
+            width: 84px;
+            height: 84px;
+            background-color: var(--text-dark);
+        }
+        @media (pointer: coarse) {
+            .custom-cursor { display: none; }
+        }
+
+        /* Fixierter Glassmorphism Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 500;
+            padding: 1.35rem 0;
+            transition: background-color 0.4s ease, padding 0.4s ease, border-color 0.4s ease;
+            border-bottom: 1px solid transparent;
+        }
+        header.is-scrolled {
+            background-color: rgba(237, 241, 246, 0.84);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            padding: 0.95rem 0;
+            border-bottom-color: var(--border-subtle);
+        }
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .brand-logo {
+            font-family: 'Playwrite FR Moderne', cursive;
+            font-size: 1.2rem;
+            -webkit-text-stroke: 0.8px var(--text-dark);
+            text-decoration: none;
+            color: var(--text-dark);
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2.2rem;
+            list-style: none;
+        }
+
+        /* Casa Momo Staggered Letter Roll Links */
+        .roll-link {
+            display: inline-flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+            line-height: 1.25;
+        }
+        .roll-link .roll-word {
+            display: inline-flex;
+        }
+        .roll-link .char {
+            display: inline-block;
+            position: relative;
+            transition: transform 0.45s var(--ease-momo);
+            transition-delay: calc(var(--i) * 0.018s);
+        }
+        .roll-link .char::after {
+            content: attr(data-char);
+            position: absolute;
+            top: 100%;
+            left: 0;
+        }
+        .roll-link:hover .char {
+            transform: translateY(-100%);
+        }
+
+        .btn-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.75rem 1.55rem;
+            border-radius: 999px;
+            background-color: var(--text-dark);
+            color: var(--bg-base);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: background-color 0.35s ease, transform 0.35s var(--ease-momo);
+        }
+        .btn-pill:hover {
+            background-color: var(--text-slate);
+            transform: translateY(-2px);
+        }
+
+        /* Mobile Burger & Vollbildmenü */
+        .burger-btn {
+            display: none;
+            background: none;
+            border: 1px solid var(--border-subtle);
+            border-radius: 999px;
+            padding: 0.5rem 1.1rem;
+            font-family: inherit;
+            font-size: 0.9rem;
+            color: var(--text-dark);
+            cursor: pointer;
+        }
+        #mobile-menu {
+            position: fixed;
+            inset: 0;
+            background-color: var(--bg-mist-green);
+            z-index: 800;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            clip-path: inset(0 0 100% 0);
+            transition: clip-path 0.75s var(--ease-momo);
+        }
+        #mobile-menu.is-open {
+            clip-path: inset(0 0 0% 0);
+        }
+        #mobile-menu a {
+            font-family: 'Playwrite FR Moderne', cursive;
+            font-size: 2rem;
+            -webkit-text-stroke: 1px var(--text-dark);
+            color: var(--text-dark);
+            text-decoration: none;
+        }
+
+        @media (max-width: 860px) {
+            .nav-links { display: none; }
+            .burger-btn { display: inline-block; }
+        }
+
+        /* Maskierter Zeilen-Einblende-Effekt für Überschriften */
+        .line-mask {
+            display: block;
+            overflow: hidden;
+            padding-bottom: 0.18em;
+        }
+        .line-inner {
+            display: block;
+            transform: translateY(115%) rotate(1.5deg);
+            opacity: 0;
+            transition: transform 1.05s var(--ease-momo), opacity 0.8s ease;
+        }
+        .is-visible .line-inner,
+        .line-mask.is-visible .line-inner {
+            transform: translateY(0%) rotate(0deg);
+            opacity: 1;
+        }
+
+        .fade-up {
+            opacity: 0;
+            transform: translateY(32px);
+            transition: opacity 0.95s var(--ease-momo), transform 0.95s var(--ease-momo);
+        }
+        .fade-up.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Hero Sektion */
+        .hero {
+            padding-top: clamp(7.5rem, 13vh, 10rem);
+            padding-bottom: 2rem;
+        }
+        .eyebrow {
+            display: inline-block;
+            font-size: 0.82rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--text-slate);
+            margin-bottom: 1.25rem;
+            font-weight: 500;
+        }
+        .hero h1 {
+            font-size: clamp(2.3rem, 5.4vw, 4.7rem);
+            max-width: 18ch;
+            margin-bottom: 1.75rem;
+        }
+        .hero-sub {
+            max-width: 58ch;
+            font-size: clamp(1.05rem, 1.35vw, 1.25rem);
+            color: var(--text-slate);
+            margin-bottom: 3.5rem;
+        }
+
+        /* ==========================================================================
+           CASA MOMO SCROLL-EXPANDING IMAGE EFFECT
+           Bilder faden rein, starten schmaler mit abgerundeten Ecken, wachsen beim
+           Scrollen auf volle Seitenbreite (100vw) und werden dabei eckig (0px).
+           ========================================================================== */
+        .momo-expand-stage {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin: 1rem 0;
+        }
+        .momo-expand-frame {
+            width: 84vw;
+            border-radius: 36px;
+            overflow: hidden;
+            position: relative;
+            opacity: 0;
+            transform: translateY(45px);
+            transition: opacity 1.1s var(--ease-momo), transform 1.1s var(--ease-momo);
+            will-change: width, border-radius, transform, opacity;
+            background-color: var(--bg-soft-blue);
+        }
+        .momo-expand-frame.is-inview {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .momo-expand-frame img {
+            width: 100%;
+            height: clamp(440px, 78vh, 880px);
+            object-fit: cover;
+            display: block;
+            transform: scale(1.12);
+            filter: saturate(0.92) contrast(1.03);
+            will-change: transform;
+        }
+        .image-caption-badge {
+            position: absolute;
+            bottom: 1.5rem;
+            left: clamp(1.25rem, 4vw, 3.5rem);
+            background-color: rgba(237, 241, 246, 0.88);
+            backdrop-filter: blur(10px);
+            padding: 0.55rem 1.15rem;
+            border-radius: 999px;
+            font-size: 0.82rem;
+            color: var(--text-dark);
+            font-weight: 500;
+            z-index: 2;
+        }
+
+        /* Gekapselte Bilder innerhalb von Spalten (starten abgerundet, strecken sich beim Scrollen) */
+        .momo-card-frame {
+            width: 100%;
+            border-radius: 32px;
+            overflow: hidden;
+            position: relative;
+            opacity: 0;
+            transform: translateY(40px) scale(0.94);
+            transition: opacity 1.05s var(--ease-momo), transform 1.05s var(--ease-momo);
+            will-change: border-radius, transform, opacity;
+            background-color: var(--bg-soft-blue);
+        }
+        .momo-card-frame.is-inview {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        .momo-card-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transform: scale(1.1);
+            filter: saturate(0.92) contrast(1.03);
+            will-change: transform;
+        }
+
+        /* Kennzahlen-Band */
+        .stats-band {
+            padding: clamp(4.5rem, 8vw, 7rem) 0;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+        .stat-item {
+            padding-left: 1.25rem;
+            border-left: 1px solid var(--border-subtle);
+        }
+        .stat-number {
+            font-family: 'Playwrite FR Moderne', cursive;
+            font-size: clamp(2rem, 3.4vw, 3rem);
+            -webkit-text-stroke: 1px var(--text-dark);
+            color: var(--text-dark);
+            margin-bottom: 0.35rem;
+        }
+        .stat-label {
+            font-size: 0.92rem;
+            color: var(--text-slate);
+        }
+        @media (max-width: 900px) {
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 520px) {
+            .stats-grid { grid-template-columns: 1fr; }
+        }
+
+        /* Story Sektion */
+        .story-section {
+            padding: clamp(5rem, 10vw, 9rem) 0;
+        }
+        .story-grid {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: clamp(2.5rem, 6vw, 6rem);
+            align-items: start;
+        }
+        .story-content h2 {
+            font-size: clamp(1.9rem, 3.6vw, 3.1rem);
+            margin-bottom: 2.2rem;
+        }
+        .story-content p {
+            font-size: 1.08rem;
+            color: var(--text-dark);
+            margin-bottom: 1.5rem;
+            max-width: 60ch;
+        }
+        .story-quote {
+            margin: 2.5rem 0;
+            padding: 2rem 2.2rem;
+            background-color: var(--bg-mist-green);
+            border-radius: 24px;
+            font-size: 1.12rem;
+            color: var(--text-dark);
+        }
+        .story-quote cite {
+            display: block;
+            margin-top: 0.9rem;
+            font-style: normal;
+            font-size: 0.88rem;
+            color: var(--text-slate);
+            font-weight: 500;
+        }
+        .story-sticky-col {
+            position: sticky;
+            top: 7rem;
+        }
+        .story-sticky-col .momo-card-frame {
+            height: clamp(460px, 70vh, 720px);
+        }
+        @media (max-width: 960px) {
+            .story-grid { grid-template-columns: 1fr; }
+            .story-sticky-col { position: static; }
+        }
+
+        /* Zwischenbild & Vision Sektion */
+        .fullbleed-break {
+            padding: 2rem 0 clamp(4rem, 8vw, 7rem);
+        }
+        .vision-caption-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.15fr;
+            gap: clamp(2rem, 5vw, 5rem);
+            align-items: start;
+            margin-top: clamp(2.5rem, 4.5vw, 3.75rem);
+        }
+        .vision-caption-grid h2 {
+            font-size: clamp(1.85rem, 3.3vw, 2.85rem);
+        }
+        .vision-caption-text {
+            font-size: 1.08rem;
+            color: var(--text-dark);
+            max-width: 58ch;
+            padding-top: 0.35rem;
+        }
+        @media (max-width: 860px) {
+            .vision-caption-grid {
+                grid-template-columns: 1fr;
+                gap: 1.25rem;
+            }
+            .vision-caption-text {
+                padding-top: 0;
+            }
+        }
+
+        /* Galerie im asymmetrischen Casa-Momo-Raster */
+        .gallery-section {
+            padding: clamp(4rem, 8vw, 7rem) 0;
+        }
+        .section-header {
+            max-width: 62ch;
+            margin-bottom: clamp(3rem, 6vw, 4.5rem);
+        }
+        .section-header h2 {
+            font-size: clamp(1.9rem, 3.6vw, 3.1rem);
+            margin-bottom: 1rem;
+        }
+        .section-header p {
+            color: var(--text-slate);
+            font-size: 1.06rem;
+        }
+        .momo-asym-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: clamp(1.5rem, 3vw, 2.75rem);
+            align-items: start;
+        }
+        .col-span-7 { grid-column: span 7; }
+        .col-span-5 { grid-column: span 5; }
+        .col-offset-top { margin-top: clamp(0rem, 5vw, 4.5rem); }
+
+        .gallery-card-media {
+            height: clamp(360px, 52vh, 600px);
+        }
+        .gallery-card-meta {
+            margin-top: 1.15rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.55rem;
+        }
+        .gallery-card-meta h3 {
+            font-size: 1.25rem;
+        }
+        .gallery-card-meta p {
+            font-size: 0.96rem;
+            color: var(--text-slate);
+            line-height: 1.6;
+        }
+
+        @media (max-width: 860px) {
+            .col-span-7, .col-span-5 { grid-column: span 12; }
+            .col-offset-top { margin-top: 0; }
+        }
+
+        /* Nummerierte Highlight-Zeilen (01 - 05) */
+        .highlights-section {
+            padding: clamp(5rem, 9vw, 8rem) 0;
+        }
+        .highlight-list {
+            border-top: 1px solid var(--border-subtle);
+        }
+        .highlight-row {
+            display: grid;
+            grid-template-columns: 90px 1.1fr 1.4fr;
+            gap: 1.5rem;
+            align-items: baseline;
+            padding: clamp(1.75rem, 3vw, 2.5rem) clamp(1rem, 2.5vw, 2rem);
+            border-bottom: 1px solid var(--border-subtle);
+            transition: background-color 0.45s var(--ease-momo), padding-left 0.45s var(--ease-momo);
+            border-radius: 18px;
+        }
+        .highlight-row[data-tint="mist"]:hover { background-color: var(--bg-mist-green); }
+        .highlight-row[data-tint="blue"]:hover { background-color: var(--bg-soft-blue); }
+        .highlight-row[data-tint="sage"]:hover { background-color: var(--bg-sage); }
+        .highlight-row[data-tint="dove"]:hover { background-color: rgba(165, 179, 182, 0.38); }
+
+        .highlight-num {
+            font-family: 'Playwrite FR Moderne', cursive;
+            font-size: 1.35rem;
+            -webkit-text-stroke: 0.9px var(--text-slate);
+            color: var(--text-slate);
+        }
+        .highlight-title {
+            font-family: 'Playwrite FR Moderne', cursive;
+            font-size: clamp(1.2rem, 1.9vw, 1.55rem);
+            -webkit-text-stroke: 0.9px var(--text-dark);
+            color: var(--text-dark);
+        }
+        .highlight-desc {
+            color: var(--text-dark);
+            font-size: 1rem;
+        }
+        @media (max-width: 860px) {
+            .highlight-row { grid-template-columns: 1fr; gap: 0.65rem; }
+        }
+
+        /* Kaufangebot Boutique-Karte */
+        .offer-section {
+            padding: clamp(4rem, 8vw, 7rem) 0 clamp(6rem, 10vw, 9rem);
+        }
+        .offer-card {
+            background-color: var(--bg-soft-blue);
+            border-radius: 36px;
+            padding: clamp(2.25rem, 5vw, 4.5rem);
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: clamp(2rem, 5vw, 4.5rem);
+            align-items: center;
+        }
+        .offer-card h2 {
+            font-size: clamp(1.9rem, 3.4vw, 2.9rem);
+            margin-bottom: 1.25rem;
+        }
+        .offer-price-box {
+            background-color: var(--bg-base);
+            padding: 1.75rem 2rem;
+            border-radius: 24px;
+            margin: 1.75rem 0;
+        }
+        .offer-price-label {
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: var(--text-slate);
+            display: block;
+            margin-bottom: 0.35rem;
+        }
+        .offer-price-value {
+            font-family: 'Playwrite FR Moderne', cursive;
+            font-size: clamp(1.85rem, 3.2vw, 2.7rem);
+            -webkit-text-stroke: 1.1px var(--text-dark);
+            color: var(--text-dark);
+        }
+        .offer-facts {
+            background-color: rgba(237, 241, 246, 0.65);
+            border-radius: 24px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.35rem;
+        }
+        .fact-row {
+            border-bottom: 1px solid var(--border-subtle);
+            padding-bottom: 1.15rem;
+        }
+        .fact-row:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        .fact-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--text-slate);
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+        .fact-value {
+            font-weight: 500;
+            font-size: 1.02rem;
+            color: var(--text-dark);
+        }
+        @media (max-width: 920px) {
+            .offer-card { grid-template-columns: 1fr; }
+        }
+
+        /* Dreispaltiger, nummerierter Casa-Momo Footer */
+        footer {
+            background-color: var(--bg-mist-green);
+            padding: clamp(4.5rem, 8vw, 7rem) 0 3rem;
+            border-top: 1px solid var(--border-subtle);
+        }
+        .footer-top {
+            margin-bottom: 4rem;
+        }
+        .footer-top h2 {
+            font-size: clamp(1.8rem, 3.2vw, 2.7rem);
+            max-width: 22ch;
+        }
+        .footer-cols {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem;
+            padding-bottom: 3.5rem;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+        .footer-col-num {
+            display: inline-block;
+            font-family: 'Playwrite FR Moderne', cursive;
+            font-size: 0.95rem;
+            -webkit-text-stroke: 0.8px var(--text-slate);
+            color: var(--text-slate);
+            margin-bottom: 0.5rem;
+        }
+        .footer-col h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1.15rem;
+        }
+        .footer-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.7rem;
+        }
+        .footer-list li {
+            color: var(--text-dark);
+            font-size: 0.96rem;
+        }
+        .footer-bottom {
+            padding-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            font-size: 0.86rem;
+            color: var(--text-slate);
+        }
+        @media (max-width: 780px) {
+            .footer-cols { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Preloader Curtain -->
+    <div id="preloader">
+        <span>Alpenstrasse 20 — Rue des Alpes</span>
+    </div>
+
+    <!-- Custom Cursor -->
+    <div class="custom-cursor" id="cursor"></div>
+
+    <!-- Fixierter Header -->
+    <header id="site-header">
+        <div class="container nav-inner">
+            <a href="#" class="brand-logo" data-cursor="link">Tina &amp; Kevin</a>
+            <ul class="nav-links">
+                <li><a href="#geschichte" class="roll-link" data-cursor="link">Unsere Geschichte</a></li>
+                <li><a href="#alltag" class="roll-link" data-cursor="link">Unser Alltag</a></li>
+                <li><a href="#highlights" class="roll-link" data-cursor="link">Warum dieses Haus</a></li>
+                <li><a href="#kontakt" class="roll-link" data-cursor="link">Kontakt</a></li>
+                <li><a href="#angebot" class="btn-pill" data-cursor="link">Kaufangebot</a></li>
+            </ul>
+            <button class="burger-btn" id="burger-btn" aria-label="Menü öffnen">Menü</button>
+        </div>
+    </header>
+
+    <!-- Mobiles Vollbildmenü -->
+    <div id="mobile-menu">
+        <a href="#geschichte" class="mobile-nav-link">Unsere Geschichte</a>
+        <a href="#alltag" class="mobile-nav-link">Unser Alltag</a>
+        <a href="#highlights" class="mobile-nav-link">Warum dieses Haus</a>
+        <a href="#angebot" class="mobile-nav-link">Kaufangebot</a>
+        <a href="#kontakt" class="mobile-nav-link">Kontakt</a>
+    </div>
+
+    <main>
+        <!-- 1. HERO MIT SCROLL-EXPANDING PANORAMA -->
+        <section class="hero">
+            <div class="container">
+                <span class="eyebrow fade-up">Une histoire à continuer • Kaufbewerbung für die Alpenstrasse 20, Biel/Bienne</span>
+                <h1 class="reveal-lines">
+                    <span class="line-mask"><span class="line-inner">Ein Zuhause mit Seele</span></span>
+                    <span class="line-mask"><span class="line-inner">für unsere Zukunft in Biel.</span></span>
+                </h1>
+                <p class="hero-sub fade-up">
+                    Chère Nadine, cher Lionel — wir sind Tina und Kevin mit unseren Kindern Leo (4) und Mila (2). Aktuell wohnen wir nur wenige Gehminuten entfernt an der Schüsspromenade 21 und wünschen uns nichts mehr, als euer charaktervolles Familienhaus im Beaumont-Quartier mit Leben, Wärme und Achtsamkeit weiterzuführen.
+                </p>
+            </div>
+
+            <!-- Bild startet schmaler mit abgerundeten Ecken, wächst beim Scrollen auf 100vw & wird eckig -->
+            <div class="momo-expand-stage">
+                <div class="momo-expand-frame" data-cursor="media" data-cursor-text="Biel">
+                    <img src="bielersee-abendlicht.jpg" alt="Abendstimmung über dem Bielersee, dem Hafen und den Jurahängen">
+                    <span class="image-caption-badge">Biel/Bienne • Zwischen See, Schüss und Beaumont</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. KENNZAHLEN-LEISTE -->
+        <section class="stats-band">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-item fade-up">
+                        <div class="stat-number" data-count="4">0</div>
+                        <div class="stat-label">Köpfe voller Vorfreude.</div>
+                    </div>
+                    <div class="stat-item fade-up">
+                        <div class="stat-number">5 Min.</div>
+                        <div class="stat-label">Von unserer heutigen Wohnung an der Schüsspromenade 21</div>
+                    </div>
+                    <div class="stat-item fade-up">
+                        <div class="stat-number" data-count="240" data-suffix=" m²">0</div>
+                        <div class="stat-label">Grosszügiger Lebensraum, den wir unverändert schätzen</div>
+                    </div>
+                    <div class="stat-item fade-up">
+                        <div class="stat-number" data-count="100" data-suffix=" %">0</div>
+                        <div class="stat-label">Angebot ohne zusätzliche Bedingungen mit gesicherter Bankfinanzierung</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. UNSERE GESCHICHTE & STICKY PORTRÄT -->
+        <section class="story-section" id="geschichte">
+            <div class="container story-grid">
+                <div class="story-content">
+                    <span class="eyebrow fade-up">Qui nous sommes • Wer wir sind</span>
+                    <h2 class="reveal-lines">
+                        <span class="line-mask"><span class="line-inner">Verwurzelt in Biel,</span></span>
+                        <span class="line-mask"><span class="line-inner">angekommen als Familie.</span></span>
+                    </h2>
+
+                    <p class="fade-up">
+                        Es gibt Orte, die man nicht einfach nur bewohnt, sondern in denen man wirklich ankommt. Für Tina schliesst sich mit der Alpenstrasse 20 ein ganz besonderer Kreis: Sie ist hier in Biel aufgewachsen, hat ihre Kindheit und Jugend in dieser Stadt verbracht und das zweisprachige Lebensgefühl zwischen See und Jura von klein auf eingeatmet. Genau diese offene, naturverbundene Kindheit möchten wir unseren beiden Kindern Leo (4) und Mila (2) schenken.
+                    </p>
+                    <p class="fade-up">
+                        Heute leben wir nur wenige Schritte entfernt in einer Mietwohnung an der Schüsspromenade 21 in der Seevorstadt.  Bei unseren Spaziergängen durch das Quartier und hinauf Richtung See und Schulen haben wir uns längst in diese ruhige, grüne Wohnlage verliebt. Als wir Ihr Haus gesehen haben, wussten wir sofort: Hier passt einfach alles zusammen.
+                    </p>
+                    <p class="fade-up">
+                        Beruflich stehen wir beide fest im Leben: Tina arbeitet seit 2016 bei Swiss Volley in Bern, aktuell als Co-Stv. Leiterin Events, und findet ihren Ausgleich beim Joggen, Biken, im Pilates oder bei Treffen mit Freundinnen. Kevin ist als Datenarchitekt bei der Berner Kantonalbank (BEKB) in Bern tätig, spielt seit zwanzig Jahren Unihockey, liebt die Bike-Trails rund um Biel und engagiert sich seit 2014 ehrenamtlich für den Schweizerischen Wellenreitverband (Swiss Surfing). Wenn wir nicht gerade in der Region unterwegs sind, zieht es uns aufs Wasser — zum Segeln oder Surfen.
+                    </p>
+
+                    <blockquote class="story-quote fade-up">
+                        «Nous ne cherchons pas un simple objet immobilier, mais une maison familiale pleine d’âme — ein Zuhause, in dem unsere Kinder aufwachsen und dessen gepflegten Charakter wir mit grossem Respekt bewahren.»
+                        <cite>— Tina &amp; Kevin [Nachname]</cite>
+                    </blockquote>
+                </div>
+
+                <div class="story-sticky-col">
+                    <div class="momo-card-frame" data-cursor="media" data-cursor-text="Famille">
+                        <img src="familie-zuhause.jpg" alt="Tina, Kevin, Leo und Mila gemeinsam vor dem geschmückten Weihnachtsbaum">
+                        <span class="image-caption-badge">Tina, Kevin, Leo &amp; Mila</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. ZWEITES VOLLBREITEN-BILD MIT CASA-MOMO-EXPANSION & VISION -->
+        <section class="fullbleed-break">
+            <div class="momo-expand-stage">
+                <div class="momo-expand-frame" data-cursor="media" data-cursor-text="Horizon">
+                    <img src="familie-ausblick.jpg" alt="Tina, Kevin, Leo und Mila im goldenen Abendlicht hoch über dem Bielersee">
+                    <span class="image-caption-badge">Blick über Biel und den See — genau wie von eurer Panorama-Terrasse</span>
+                </div>
+            </div>
+            <div class="container vision-caption-grid">
+                <div>
+                    <span class="eyebrow fade-up">Notre vision • Unsere Haltung</span>
+                    <h2 class="reveal-lines">
+                        <span class="line-mask"><span class="line-inner">Charakter bewahren,</span></span>
+                        <span class="line-mask"><span class="line-inner">mit Leben füllen.</span></span>
+                    </h2>
+                </div>
+                <p class="vision-caption-text fade-up">
+                    Wir suchen kein Renditeobjekt und planen keine sterilen Umbauten, die den gewachsenen Charme Ihres Hauses verändern. Im Gegenteil: Uns hat sofort beeindruckt, wie liebevoll und sorgfältig die Liegenschaft gepflegt wurde. Diesen Geist möchten wir weiterführen — mit Kinderlachen im Garten, gemütlichen Sommerfesten auf der Terrasse und einem langfristigen Lebensmittelpunkt für die nächsten Jahrzehnte.
+                </p>
+            </div>
+        </section>
+
+        <!-- 5. ASYMMETRISCHE GALERIE IM CASA-MOMO-RASTER -->
+        <section class="gallery-section" id="alltag">
+            <div class="container">
+                <div class="section-header">
+                    <span class="eyebrow fade-up">Notre quotidien • Einblicke in unseren Alltag</span>
+                    <h2 class="reveal-lines">
+                        <span class="line-mask"><span class="line-inner">Draussen zuhause,</span></span>
+                        <span class="line-mask"><span class="line-inner">voller Lebensfreude.</span></span>
+                    </h2>
+                    <p class="fade-up">
+                        Ob mit den Trottinetts in der Bieler Altstadt, gemeinsam auf dem Bielersee oder barfuss am Meer — wir lieben ein aktives, unkompliziertes Familienleben.
+                    </p>
+                </div>
+
+                <div class="momo-asym-grid">
+                    <!-- Karte 1 (7 Spalten) -->
+                    <article class="col-span-7">
+                        <div class="momo-card-frame gallery-card-media" data-cursor="media" data-cursor-text="Voir">
+                            <img src="kinder-schuessinsel.jpg" alt="Leo und Mila mit ihren Trottinetts vor der Schüssinsel in Biel">
+                        </div>
+                        <div class="gallery-card-meta fade-up">
+                            <h3>Unterwegs am Strandboden</h3>
+                            <p>Nur wenige Minuten von unserer jetzigen Wohnung und der Alpenstrasse entfernt: Leo und Mila auf Entdeckungstour zwischen Schüss und Seeufer.</p>
+                        </div>
+                    </article>
+
+                    <!-- Karte 2 (5 Spalten, versetzt) -->
+                    <article class="col-span-5 col-offset-top">
+                        <div class="momo-card-frame gallery-card-media" data-cursor="media" data-cursor-text="Voir">
+                            <img src="kinder-nestschaukel.jpg" alt="Leo und Mila lachen gemeinsam in der Nestschaukel">
+                        </div>
+                        <div class="gallery-card-meta fade-up">
+                            <h3>Leo (4) &amp; Mila (2)</h3>
+                            <p>Zwei Wirbelwinde, die sich auf einen eigenen Garten zum Spielen und den grossen Keller zum Austoben freuen.</p>
+                        </div>
+                    </article>
+
+                    <!-- Karte 3 (5 Spalten) -->
+                    <article class="col-span-5">
+                        <div class="momo-card-frame gallery-card-media" data-cursor="media" data-cursor-text="Voir">
+                            <img src="familie-bielersee-schiff.jpg" alt="Die ganze Familie auf dem Schiff auf dem Bielersee vor den Jurahängen">
+                        </div>
+                        <div class="gallery-card-meta fade-up">
+                            <h3>Auf dem Bielersee</h3>
+                            <p>Der See direkt vor der Haustür gehört für uns zum Schönsten an Biel — vom kurzen Spaziergang nach Feierabend bis zum Sonntagsausflug.</p>
+                        </div>
+                    </article>
+
+                    <!-- Karte 4 (7 Spalten, versetzt) -->
+                    <article class="col-span-7 col-offset-top">
+                        <div class="momo-card-frame gallery-card-media" data-cursor="media" data-cursor-text="Voir">
+                            <img src="familie-atlantik.jpg" alt="Tina, Kevin, Leo und Mila barfuss am Atlantikstrand">
+                        </div>
+                        <div class="gallery-card-meta fade-up">
+                            <h3>Leidenschaft fürs Wasser</h3>
+                            <p>Ob am Atlantik oder auf dem Bielersee: Wir lieben die Natur, unkomplizierte Gastfreundschaft und laue Sommerabende auf der Terrasse mit Freunden.</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. WARUM WIR EUER HAUS LIEBEN (01 - 05) -->
+        <section class="highlights-section" id="highlights">
+            <div class="container">
+                <div class="section-header">
+                    <span class="eyebrow fade-up">Notre coup de cœur • Was uns begeistert</span>
+                    <h2 class="reveal-lines">
+                        <span class="line-mask"><span class="line-inner">Fünf Gründe, warum euer Haus perfekt zu uns passt.</span></span>
+                    </h2>
+                </div>
+
+                <div class="highlight-list">
+                    <div class="highlight-row fade-up" data-tint="mist">
+                        <span class="highlight-num">01</span>
+                        <div class="highlight-title">Der gepflegte Zustand</div>
+                        <p class="highlight-desc">Man spürt sofort, mit wie viel Sorgfalt und Liebe ihr das Haus über die Jahre gepflegt habt. Wir möchten diese Substanz genau so wertschätzen und achtsam weiterführen.</p>
+                    </div>
+                    <div class="highlight-row fade-up" data-tint="blue">
+                        <span class="highlight-num">02</span>
+                        <div class="highlight-title">Die Lage im Beaumont</div>
+                        <p class="highlight-desc">In wenigen Minuten zu Fuss am Bielersee, beim Collège des Alpes und am Bahnhof — ideal für unseren Familienalltag ohne lange Wege.</p>
+                    </div>
+                    <div class="highlight-row fade-up" data-tint="sage">
+                        <span class="highlight-num">03</span>
+                        <div class="highlight-title">Der grosse Keller</div>
+                        <p class="highlight-desc">Ein echtes Paradies für Leo und Mila, um an Regentagen Höhlen zu bauen, zu spielen und sich nach Herzenslust auszutoben.</p>
+                    </div>
+                    <div class="highlight-row fade-up" data-tint="dove">
+                        <span class="highlight-num">04</span>
+                        <div class="highlight-title">Terrasse &amp; Garten</div>
+                        <p class="highlight-desc">Die geschützte Gartenfläche zum Spielen für die Kinder und die sonnige Terrasse für gemütliche Sommerfeste und laue Abende mit Blick Richtung See.</p>
+                    </div>
+                    <div class="highlight-row fade-up" data-tint="mist">
+                        <span class="highlight-num">05</span>
+                        <div class="highlight-title">Das Dachgeschoss</div>
+                        <p class="highlight-desc">Ein wunderbarer, ruhiger Rückzugsort unter dem Dach als ganz eigenes Reich für uns Eltern zum Durchatmen und Lesen.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. VERBINDLICHES KAUFANGEBOT -->
+        <section class="offer-section" id="angebot">
+            <div class="container">
+                <div class="offer-card fade-up">
+                    <div>
+                        <span class="eyebrow">Notre offre • Verbindliches Kaufangebot</span>
+                        <h2>Klar, verlässlich und ohne Vorbehalte.</h2>
+                        <p>
+                            Wir wissen aus eigener Projekterfahrung, wie wichtig eine transparente, unkomplizierte Abwicklung ist. Unser Angebot ist an keinerlei Bedingungen geknüpft — wir müssen keine eigene Immobilie verkaufen und können nach eurer Zusage direkt die Beurkundung vorbereiten.
+                        </p>
+
+                        <div class="offer-price-box">
+                            <span class="offer-price-label">Angebotener Kaufpreis • Alpenstrasse 20, 2502 Biel</span>
+                            <div class="offer-price-value">CHF [1'450'000.—]</div>
+                        </div>
+
+                        <a href="finanzierungsbestaetigung.pdf" target="_blank" rel="noopener" class="btn-pill" data-cursor="link">
+                            Finanzierungsbestätigung öffnen (PDF) &rarr;
+                        </a>
+                    </div>
+
+                    <div class="offer-facts">
+                        <div class="fact-row">
+                            <span class="fact-label">Bedingungen</span>
+                            <span class="fact-value">Komplett bedingungsloses Angebot</span>
+                        </div>
+                        <div class="fact-row">
+                            <span class="fact-label">Wunsch-Übernahmetermin</span>
+                            <span class="fact-value">Frühestens März / April 2027 — nach Absprache flexibel verhandelbar</span>
+                        </div>
+                        <div class="fact-row">
+                            <span class="fact-label">Finanzierung</span>
+                            <span class="fact-value">Gesichert durch [Name der Bank, z. B. BEKB] (Bestätigung liegt vor)</span>
+                        </div>
+                        <div class="fact-row">
+                            <span class="fact-label">Käuferfamilie</span>
+                            <span class="fact-value">Tina Schläppi &amp; Kevin Gygax, Schüsspromenade 21, 2502 Biel/Bienne</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 8. DREISPALTIGER, NUMMERIERTER CASA-MOMO FOOTER -->
+    <footer id="kontakt">
+        <div class="container">
+            <div class="footer-top">
+                <span class="eyebrow fade-up">Nous avons hâte d'avoir de vos nouvelles • Wir freuen uns darauf, von euch zu hören</span>
+                <h2 class="reveal-lines">
+                    <span class="line-mask"><span class="line-inner">Nous serions ravis</span></span>
+                    <span class="line-mask"><span class="line-inner">de recevoir une réponse positive.</span></span>
+                </h2>
+            </div>
+
+            <div class="footer-cols">
+                <div>
+                    <span class="footer-col-num">1</span>
+                    <h3>Navigation</h3>
+                    <ul class="footer-list">
+                        <li><a href="#geschichte" class="roll-link" data-cursor="link">Unsere Geschichte</a></li>
+                        <li><a href="#alltag" class="roll-link" data-cursor="link">Unser Alltag</a></li>
+                        <li><a href="#highlights" class="roll-link" data-cursor="link">Warum dieses Haus</a></li>
+                        <li><a href="#angebot" class="roll-link" data-cursor="link">Kaufangebot</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <span class="footer-col-num">2</span>
+                    <h3>Unterlagen</h3>
+                    <ul class="footer-list">
+                        <li><a href="finanzierungsbestaetigung.pdf" target="_blank" rel="noopener" class="roll-link" data-cursor="link">Finanzierungsbestätigung (PDF)</a></li>
+                        <li>Objekt: Alpenstrasse 20, 2502 Biel</li>
+                        <li>Übernahme: ab März/April 2027 (flexibel)</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <span class="footer-col-num">3</span>
+                    <h3>Direkter Kontakt</h3>
+                    <ul class="footer-list">
+                        <li>Tina &amp; Kevin [Nachname]</li>
+                        <li>Schüsspromenade 21, 2502 Biel/Bienne</li>
+                        <li><a href="tel:[Telefonnummer]" class="roll-link" data-cursor="link">[Telefonnummer]</a></li>
+                        <li><a href="mailto:[E-Mail-Adresse]" class="roll-link" data-cursor="link">[E-Mail-Adresse]</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <span>&copy; 2026 Kaufbewerbung Alpenstrasse 20 — Tina &amp; Kevin [Nachname]</span>
+                <span>Mit Herzblut gestaltet für Nadine &amp; Lionel Boillat</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Preloader ausblenden
+            const preloader = document.getElementById('preloader');
+            setTimeout(() => {
+                preloader.classList.add('is-done');
+                document.querySelectorAll('.hero .line-mask, .hero .fade-up').forEach(el => {
+                    el.classList.add('is-visible');
+                });
+            }, 450);
+
+            // 2. Casa Momo Staggered Letter Roll auf allen .roll-link Elementen
+            document.querySelectorAll('.roll-link').forEach(link => {
+                const text = link.textContent.trim();
+                link.innerHTML = '';
+                const wordSpan = document.createElement('span');
+                wordSpan.className = 'roll-word';
+                [...text].forEach((char, idx) => {
+                    const span = document.createElement('span');
+                    span.className = 'char';
+                    span.style.setProperty('--i', idx);
+                    const displayChar = char === ' ' ? ' ' : char;
+                    span.textContent = displayChar;
+                    span.setAttribute('data-char', displayChar);
+                    wordSpan.appendChild(span);
+                });
+                link.appendChild(wordSpan);
+            });
+
+            // 3. Magnetic Custom Cursor
+            const cursor = document.getElementById('cursor');
+            let mouseX = window.innerWidth / 2;
+            let mouseY = window.innerHeight / 2;
+            let cursorX = mouseX;
+            let cursorY = mouseY;
+
+            window.addEventListener('mousemove', e => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            });
+
+            function animateCursor() {
+                cursorX += (mouseX - cursorX) * 0.16;
+                cursorY += (mouseY - cursorY) * 0.16;
+                cursor.style.left = cursorX + 'px';
+                cursor.style.top = cursorY + 'px';
+                requestAnimationFrame(animateCursor);
+            }
+            animateCursor();
+
+            document.querySelectorAll('[data-cursor]').forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    const type = el.getAttribute('data-cursor');
+                    if (type === 'media') {
+                        cursor.classList.add('is-media');
+                        cursor.textContent = el.getAttribute('data-cursor-text') || 'Voir';
+                    } else {
+                        cursor.classList.add('is-link');
+                        cursor.textContent = '';
+                    }
+                });
+                el.addEventListener('mouseleave', () => {
+                    cursor.classList.remove('is-media', 'is-link');
+                    cursor.textContent = '';
+                });
+            });
+
+            // 4. Fixierter Header & Mobiles Menü
+            const header = document.getElementById('site-header');
+            const burgerBtn = document.getElementById('burger-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            burgerBtn.addEventListener('click', () => {
+                const open = mobileMenu.classList.toggle('is-open');
+                burgerBtn.textContent = open ? 'Schliessen' : 'Menü';
+            });
+            document.querySelectorAll('.mobile-nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.remove('is-open');
+                    burgerBtn.textContent = 'Menü';
+                });
+            });
+
+            // 5. Intersection Observer für Text-Reveals, Bild-Fade-Ins & Kennzahlen-Zähler
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible', 'is-inview');
+
+                        // Kennzahlen hochzählen
+                        const countEl = entry.target.querySelector('[data-count]');
+                        if (countEl && !countEl.dataset.counted) {
+                            countEl.dataset.counted = 'true';
+                            const target = parseInt(countEl.dataset.count, 10);
+                            const suffix = countEl.dataset.suffix || '';
+                            const duration = 1300;
+                            const start = performance.now();
+                            function step(now) {
+                                const p = Math.min((now - start) / duration, 1);
+                                const eased = 1 - Math.pow(1 - p, 3);
+                                countEl.textContent = Math.round(eased * target) + suffix;
+                                if (p < 1) requestAnimationFrame(step);
+                            }
+                            requestAnimationFrame(step);
+                        }
+                    }
+                });
+            }, { threshold: 0.12 });
+
+            document.querySelectorAll('.line-mask, .fade-up, .momo-expand-frame, .momo-card-frame, .stat-item').forEach(el => {
+                revealObserver.observe(el);
+            });
+
+            // 6. CASA MOMO SCROLL-EXPANSION:
+            // Bilder starten abgerundet & schmaler, wachsen beim Scrollen auf volle Breite (100vw)
+            // und werden eckig (border-radius: 0px).
+            const expandFrames = document.querySelectorAll('.momo-expand-frame');
+            const cardFrames = document.querySelectorAll('.momo-card-frame');
+
+            function updateScrollEffects() {
+                const scrollY = window.scrollY;
+                const vh = window.innerHeight;
+
+                if (scrollY > 40) {
+                    header.classList.add('is-scrolled');
+                } else {
+                    header.classList.remove('is-scrolled');
+                }
+
+                // Vollbreiten-Bilder (Hero & Zwischenbild)
+                expandFrames.forEach(frame => {
+                    const rect = frame.getBoundingClientRect();
+                    // Fortschritt 0 (unten im Viewport) -> 1 (oberes Drittel erreicht)
+                    const progress = Math.max(0, Math.min(1, (vh * 0.92 - rect.top) / (vh * 0.72)));
+                    const widthVw = 84 + progress * 16; // 84vw -> 100vw
+                    const radiusPx = Math.round(36 * (1 - progress)); // 36px -> 0px
+                    frame.style.width = widthVw + 'vw';
+                    frame.style.borderRadius = radiusPx + 'px';
+
+                    const img = frame.querySelector('img');
+                    if (img) {
+                        const imgScale = 1.12 - progress * 0.10; // sanftes Herauszoomen
+                        const parallaxY = (rect.top / vh) * -28;
+                        img.style.transform = `translateY(${parallaxY}px) scale(${imgScale})`;
+                    }
+                });
+
+                // Eingebettete Kartenbilder (starten mit 32px Radius und werden beim Scrollen eckiger)
+                cardFrames.forEach(frame => {
+                    const rect = frame.getBoundingClientRect();
+                    const progress = Math.max(0, Math.min(1, (vh * 0.9 - rect.top) / (vh * 0.65)));
+                    const radiusPx = Math.round(32 * (1 - progress)); // 32px -> 0px
+                    frame.style.borderRadius = radiusPx + 'px';
+
+                    const img = frame.querySelector('img');
+                    if (img) {
+                        const imgScale = 1.10 - progress * 0.08;
+                        const parallaxY = ((rect.top - vh * 0.3) / vh) * -22;
+                        img.style.transform = `translateY(${parallaxY}px) scale(${imgScale})`;
+                    }
+                });
+            }
+
+            window.addEventListener('scroll', () => {
+                requestAnimationFrame(updateScrollEffects);
+            }, { passive: true });
+            updateScrollEffects();
+        });
+    </script>
+</body>
+</html>
